@@ -31,7 +31,10 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Pages::index');
 $routes->get('/siswa/', 'Siswa::index');
-$routes->get('/siswa/(:segment)', 'Siswa::edit/$1');
+$routes->get('/siswa/(:num)', 'Siswa::edit/$1');
+$routes->get('/siswa/insert', 'Siswa::insert');
+$routes->get('/siswa/delete/(:num)', 'Siswa::delete/$1');
+$routes->get('/siswa/update/(:num)', 'Siswa::update/$1');
 
 
 /*

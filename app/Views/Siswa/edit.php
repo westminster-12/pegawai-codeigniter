@@ -24,13 +24,13 @@ $this->section('content');
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Edit Data</h5>
-              <form method="POST" action="proses.php" class="row g-3">
+              <form method="POST" action="<?= site_url('siswa/update/' . $siswa['id_siswa']); ?>" class="row g-3" enctype="multipart/form-data">
                 <input type="hidden" value="<?php echo $siswa['id_siswa'];?>" name="id_siswa" class="form-control" id="inputAddress">
                 <div class="col-12">
                   <label for="inputNumber" class="col-sm-2 col-form-label">Foto</label>
                   <img src="/img/<?= $siswa['foto']; ?>" class="image-size">
                   <div class="col-sm-10">
-                    <input class="form-control" type="file" id="formFile">
+                    <input class="form-control" type="file" name=foto id="formFile">
                   </div>
                 </div>
                 <div class="col-12">
@@ -42,16 +42,20 @@ $this->section('content');
                   <input type="number" value="<?php echo $siswa['nisn'];?>" name="nisn" class="form-control" id="inputEmail4">
                 </div>
                 <div class="col-12">
-                  <label for="inputPassword4" class="form-label">Jenis Kelamin</label>
-                  <input type="text"  value="<?php echo $siswa['jenis_kelamin'];?>" name="jenis_kelamin" class="form-control" id="inputPassword4">
-                </div>
-                <div class="col-12">
                   <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
                   <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example">
-                      <option value="1">Laki-laki</option>
-                      <option value="2">Perempuan</option>
-                    </select>
+                     <select class="form-select" aria-label="Default select example" name="jenis_kelamin">
+                      <?php if ($siswa['jenis_kelamin'] == "Laki-laki"): ?>
+                          <option value="Laki-laki" selected>Laki-laki</option>
+                          <option value="Perempuan">Perempuan</option>
+                      <?php elseif ($siswa['jenis_kelamin'] == "Perempuan"): ?>
+                          <option value="Laki-laki">Laki-laki</option>
+                          <option value="Perempuan" selected>Perempuan</option>
+                      <?php else: ?>
+                          <option value="Laki-laki">Laki-laki</option>
+                          <option value="Perempuan">Perempuan</option>
+                      <?php endif; ?>
+                  </select>
                   </div>
                 </div>
                 <div class="col-12">
@@ -60,7 +64,7 @@ $this->section('content');
                 </div>
                 <div class="text-center">
                   <button type="submit" value="submit" name="aksi" class="btn btn-primary">Submit</button>
-                  <button type="reset" class="btn btn-secondary"><a href="tables-data.php">Kembali</a></button>
+                  <button type="reset" class="btn btn-secondary"><a href="/siswa">Kembali</a></button>
                 </div>
               </form><!-- Vertical Form -->
 

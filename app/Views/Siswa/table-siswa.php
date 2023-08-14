@@ -13,12 +13,7 @@ $this->section('content');
   <title><?php echo $title ?> NiceAdmin Bootstrap Template</title>
   
 </head>
-<style>
-  .image-size{
-    width: 100px;
-    height: 100px;
-  }
-</style>
+
   
 <body>
 
@@ -69,7 +64,7 @@ $this->section('content');
                     <td> <img src="/img/<?= $s['foto']; ?>" class="image-size"> </td>
                     <td>
                       <button type="button" name=edit class="btn btn-outline-primary"> <a href="/siswa/<?php echo $s['id_siswa']; ?>">Edit</a> </button>
-                      <button type="button" name="hapus" class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin?')" ><a href="proses.php;?>">Hapus</a></button>
+                      <button type="button" name="hapus" class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin?')" ><a href="/siswa/delete/<?php echo $s['id_siswa']; ?>">Hapus</a></button>
                     </td>
                   </tr>
                 <?php endforeach; ?>

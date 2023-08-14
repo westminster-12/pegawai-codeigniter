@@ -291,7 +291,7 @@
         </a>
         <ul id="tables-nav" class="nav-content" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="/siswa/">
+            <a href="/siswa/add">
               <i class="bi bi-circle"></i><span>Tambah Data</span>
             </a>
           </li>

@@ -13,11 +13,6 @@ class Siswa extends BaseController
 
     public function index()
     {
-        // $db= \Config\Database::connect();
-        // $siswa=$db->query("SELECT * from tb_siswa");
-        // foreach ($siswa->getResultArray() as $row) {
-        //     d($row);
-        // }
 
         $siswa=$this->siswaModel->findAll();
 
@@ -34,5 +29,69 @@ class Siswa extends BaseController
         $data=['siswa' => $siswa];
         return view('siswa/edit', $data);
     }
+    public function update($id_siswa)
+    {
+        if ($this->request->getMethod() === 'post') {
+            $data = [
+                'nama_siswa' => $this->request->getVar('nama_siswa'),
+                'nisn' => $this->request->getVar('nisn'),
+                'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+                'alamat' => $this->request->getVar('alamat')
+            ];
+
+            // Handle file upload for foto
+            $foto = $this->request->getFile('foto');
+            if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+                $newName = $foto->getRandomName();
+                $foto->move('./img', $newName);
+                $data['foto'] = $newName;
+            }
+
+            $this->siswaModel->updateSiswa($id_siswa, $data);
+
+            return redirect()->to('/siswa'); // Redirect back to the list of students
+        }
+
+        $siswa = $this->siswaModel->getSiswa($id_siswa);
+        $data = ['siswa' => $siswa];
+        return view('siswa/edit', $data);
+    }
+
+    public function add()
+    {
+        return view('siswa/add');
+    }
+
+    public function insert()
+    {
+        if ($this->request->getMethod() === 'post') {
+            $data = [
+                'nama_siswa' => $this->request->getVar('nama_siswa'),
+                'nisn' => $this->request->getVar('nisn'),
+                'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+                'alamat' => $this->request->getVar('alamat')
+            ];
+
+            // Handle file upload for foto
+            $foto = $this->request->getFile('foto');
+            if ($foto->isValid() && !$foto->hasMoved()) {
+                $newName = $foto->getRandomName();
+                $foto->move('./img', $newName);
+                $data['foto'] = $newName;
+            }
+
+            $this->siswaModel->addSiswa($data);
+
+            return redirect()->to('/siswa/'); // Redirect back to the list of students
+        }
+
+        return view('siswa/');
+    }
+
+    public function delete($id_siswa){
+        $this->siswaModel->deleteSiswa($id_siswa);
+        return redirect()->to('/siswa');
+    }
+
 
 }
